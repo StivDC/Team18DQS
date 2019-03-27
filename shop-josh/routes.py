@@ -10,28 +10,30 @@ from flask_login import login_user, current_user, logout_user, login_required
 
 @app.route("/home", methods=['GET','POST'])
 def home():
-    books = Book.query.all()
-    return render_template('home.html', books=books, title='My Wonderful Book Shop')
+    form = LoginForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=form.email.data).first()
 
-@app.route("/home_author_sort_asc", methods=['GET','POST'])
-def home_author_sort_asc():
-    books = Book.query.order_by(Book.title.asc())
-    return render_template('home.html', books=books, title='My Wonderful Book Shop')
+        if user is not None and user.verify_password(form.password.data):
+            login_user(user)
+            flash('You are now logged in.')
+            return redirect(url_for('home'))
+        flash('Invalid username or password.')
 
-@app.route("/home_author_sort_desc", methods=['GET','POST'])
-def home_author_sort_desc():
-    books = Book.query.order_by(Book.title.desc())
-    return render_template('home.html', books=books, title='My Wonderful Book Shop')
+        return render_template('login.html', form=form)
 
-@app.route("/home_price_sort_asc", methods=['GET','POST'])
-def home_price_sort_asc():
-    books = Book.query.order_by(Book.price.asc())
-    return render_template('home.html', books=books, title='My Wonderful Book Shop')
+    return render_template('login.html', title='Login', form=form)
 
-@app.route("/home_price_sort_desc", methods=['GET','POST'])
-def home_price_sort_desc():
-    books = Book.query.order_by(Book.price.desc())
-    return render_template('home.html', books=books, title='My Wonderful Book Shop')
+#examples may be useful for later when needing to use SQL statements.
+#@app.route("/home", methods=['GET','POST'])
+#def home():
+#    books = Book.query.all()
+#    return render_template('home.html', books=books, title='My Wonderful Book Shop')
+
+#@app.route("/home_author_sort_asc", methods=['GET','POST'])
+#def home_author_sort_asc():
+#    books = Book.query.order_by(Book.title.asc())
+#    return render_template('home.html', books=books, title='My Wonderful Book Shop')
 
 @app.route("/about")
 def about():
@@ -54,22 +56,6 @@ def register():
         return redirect(url_for('home'))
 
     return render_template('register.html', title='Register', form=form)
-
-@app.route("/login", methods=['GET','POST'])
-def login():
-    form = LoginForm()
-    if form.validate_on_submit():
-        user = User.query.filter_by(email=form.email.data).first()
-
-        if user is not None and user.verify_password(form.password.data):
-            login_user(user)
-            flash('You are now logged in.')
-            return redirect(url_for('home'))
-        flash('Invalid username or password.')
-
-        return render_template('login.html', form=form)
-
-    return render_template('login.html', title='Login', form=form)
 
 @app.route("/logout")
 def logout():
