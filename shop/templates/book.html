@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block content %}
+  
+  <h1>"{{ book.title }}" &nbsp Author: {{ book.author.first_name }}&nbsp{{ book.author.last_name}}</h1>
+
+  <img src = "{{ book.image_file }}">  
+
+  <h3>Description of book: {{ book.description }}</h3>
+
+  <h4>Price: £{{ book.price }}</h4>
+
+  <a class="" href="/add_to_basket/{{book.id}}">Add to Basket</a>
+
+{% endblock content %}
