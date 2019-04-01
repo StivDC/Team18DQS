@@ -1,0 +1,105 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="content">
+
+  <h2>Test</h2>
+
+  <form method="POST" action="">
+    {{ form.csrf_token }}
+    <div class="">
+      {{ form.question1.label }}
+      <br>
+      {{ form.question1}}
+      {% for error in form.question1.errors %}
+    <span style="color: red;">[{{ error }}]</span>
+    {% endfor %}
+    </div>
+    <div class="">
+      {{ form.question2.label }}
+      <br>
+      {{ form.question2}}
+      {% for error in form.question2.errors %}
+    <span style="color: red;">[{{ error }}]</span>
+    {% endfor %}
+    </div>
+    <div class="">
+      {{ form.question3.label }}
+      <br>
+      {{ form.question3}}
+      {% for error in form.question3.errors %}
+    <span style="color: red;">[{{ error }}]</span>
+    {% endfor %}
+    </div>
+    <div class="">
+      {{ form.question4.label }}
+      <br>
+      {{ form.question4}}
+      {% for error in form.question4.errors %}
+    <span style="color: red;">[{{ error }}]</span>
+    {% endfor %}
+    </div>
+    <div class="">
+      {{ form.question5.label }}
+      <br>
+      {{ form.question5}}
+      {% for error in form.question5.errors %}
+    <span style="color: red;">[{{ error }}]</span>
+    {% endfor %}
+    </div>
+    <div class="">
+      {{ form.question5.label }}
+      <br>
+      {{ form.question5}}
+      {% for error in form.question5.errors %}
+    <span style="color: red;">[{{ error }}]</span>
+    {% endfor %}
+    </div>
+    <div class="">
+      {{ form.question6.label }}
+      <br>
+      {{ form.question6}}
+      {% for error in form.question6.errors %}
+    <span style="color: red;">[{{ error }}]</span>
+    {% endfor %}
+    </div>
+    <div class="">
+      {{ form.question7.label }}
+      <br>
+      {{ form.question7}}
+      {% for error in form.question7.errors %}
+    <span style="color: red;">[{{ error }}]</span>
+    {% endfor %}
+    </div>
+    <div class="">
+      {{ form.question8.label }}
+      <br>
+      {{ form.question8}}
+      {% for error in form.question8.errors %}
+    <span style="color: red;">[{{ error }}]</span>
+    {% endfor %}
+    </div>
+    <div class="">
+      {{ form.question9.label }}
+      <br>
+      {{ form.question9}}
+      {% for error in form.question9.errors %}
+    <span style="color: red;">[{{ error }}]</span>
+    {% endfor %}
+    </div>
+    <div class="">
+      {{ form.question10.label }}
+      <br>
+      {{ form.question10}}
+      {% for error in form.question10.errors %}
+    <span style="color: red;">[{{ error }}]</span>
+    {% endfor %}
+    </div>
+      <br>
+    <div class="">
+      {{ form.submit() }}
+    </div>
+  </form>
+</div>
+
+{% endblock content %}
