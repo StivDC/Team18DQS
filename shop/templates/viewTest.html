@@ -5,12 +5,21 @@
 
 	<h1>This is your questionnaire in it's rough form</h1>
 	<h1>Subject to change when a user takes the test</h1>
+	<h1>The test name is: {{ testName }}</h1>
+	{% if TTest == 'FTest' %}
+	<h1>The test type is: Formative test</h1>
+	{% else %}
+	<h1>The test type is: Summative test</h1>
+	{% endif %}
+
 {% for x,c in test.items() %}
+
 	<h1>Question: {{x}}</h1>
 	<h2>Answer: {{ c[0]}}</h2>
 	<h3>Incorrect answer: {{ c[1][0] }}</h3>
 	<h3>Incorrect answer: {{ c[1][1] }}</h3>
 	<h3>Incorrect answer: {{ c[1][2] }}</h3>
+
 {% endfor %}
 <h1>Dictionary test: {{test}}</h1>
 

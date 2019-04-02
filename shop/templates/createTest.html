@@ -5,6 +5,13 @@
 <div class="content">
 <h1>Workings</h1>
 <form method="POST" action="/viewTest">
+<h1>Input name of test<input type="text" name="testName" required></h1>
+<h1>Please input the type of test that you want to create 
+	<select name="TTest">
+		<option value="FTest">Formative test</option>
+		<option value="STest">Summative test</option>
+	</select>
+</h1>
 {% for i in range(0, xTest) %}
 	<input type="text" placeholder="Question {{i+1}}" name="Q{{i}}" required> <br>
 	<input type="answer" placeholder="Answer {{i+1}}" name="A{{i}}"required>
@@ -16,4 +23,5 @@
 <input type="submit" name="submit">
 </form>
 </div>
+
 {% endblock content %}
