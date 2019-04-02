@@ -12,7 +12,6 @@ xTest = 0
 def home():
     return render_template('home.html', title='My Wonderful Book Shop')
 
-
 @app.route("/viewTest", methods=['GET', 'POST'])
 def viewTest():
     global xTest
@@ -29,7 +28,7 @@ def viewTest():
                 varIA = ""
                 varIA += "IA"+str(i)
                 varIA+=str(j)
-                varIAL.append(request.form[varIA]) 
+                varIAL.append(request.form[varIA])
             s1[request.form[varQ]] = request.form[varA], varIAL
     test = s1
     return render_template('viewTest.html', test=test)
@@ -43,6 +42,27 @@ def createTest():
     global xTest
     xTest = s1
     return render_template('createTest.html', xTest=int(xTest))
+
+@app.route("/taketest", methods=['GET', 'POST'])
+def taketest():
+    global xTest
+    s1={}
+    if request.method == 'POST':
+        # Pushes questions and answers into a dictionary
+        for i in range(0, int(xTest)):
+            varQ = ""
+            varA = ""
+            varQ += "Q"+str(i)
+            varA += "A"+str(i)
+            varIAL =[]
+            for j in range(1,4):
+                varIA = ""
+                varIA += "IA"+str(i)
+                varIA+=str(j)
+                varIAL.append(request.form[varIA])
+            s1[request.form[varQ]] = request.form[varA], varIAL
+    test = s1
+    return render_template('takeTest.html', test=test)
 
 @app.route("/home_author_sort_asc", methods=['GET','POST'])
 def home_author_sort_asc():
@@ -67,11 +87,6 @@ def home_price_sort_desc():
 @app.route("/about")
 def about():
     return render_template('about.html', title='About')
-
-@app.route("/taketest", methods=['GET', 'POST'])
-def taketest():
-    form=takeTestForm()
-    return render_template('takeTest.html', title='Take Test', form=form)
 
 @app.route("/book/<int:book_id>")
 def book(book_id):
@@ -202,5 +217,3 @@ def search():
         return render_template('home.html', books=books, title="Search")
     books = Book.query.filter(Book.title.like("%" + search + "%"))
     return render_template('search.html', books=books, title="Search")
-
-
