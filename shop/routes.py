@@ -16,12 +16,21 @@ def home():
 @app.route("/viewTest", methods=['GET', 'POST'])
 def viewTest():
     global xTest
-    s1=[]
+    s1={}
     if request.method == 'POST':
+        # Pushes questions and answers into a dictionary
         for i in range(0, int(xTest)):
-            varT = ""
-            varT += "Q"+str(i)
-            s1 += [request.form[varT]]
+            varQ = ""
+            varA = ""
+            varQ += "Q"+str(i)
+            varA += "A"+str(i)
+            varIAL =[]
+            for j in range(1,4):
+                varIA = ""
+                varIA += "IA"+str(i)
+                varIA+=str(j)
+                varIAL.append(request.form[varIA]) 
+            s1[request.form[varQ]] = request.form[varA], varIAL
     test = s1
     return render_template('viewTest.html', test=test)
 

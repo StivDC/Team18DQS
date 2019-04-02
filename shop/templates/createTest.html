@@ -1,14 +1,16 @@
 {% extends "layout.html" %}
 {% block content %}
+
+
 <div class="content">
 <h1>Workings</h1>
 <form method="POST" action="/viewTest">
 {% for i in range(0, xTest) %}
 	<input type="text" placeholder="Question {{i+1}}" name="Q{{i}}" required> <br>
-	<input type="answer" placeholder="Answer {{i+1}}" name="A{{i}}">
-	<input type="answer" placeholder="Incorrect answer {{i+1}}" name="IA{{i}}">
-	<input type="answer" placeholder="Incorrect answer {{i+1}}" name="IA{{i}}">
-	<input type="answer" placeholder="Incorrect answer {{i+1}}" name="IA{{i}}">
+	<input type="answer" placeholder="Answer {{i+1}}" name="A{{i}}"required>
+	<input type="answer" placeholder="Incorrect answer {{i+1}}" name="IA{{i}}1"required>
+	<input type="answer" placeholder="Incorrect answer {{i+1}}" name="IA{{i}}2"required>
+	<input type="answer" placeholder="Incorrect answer {{i+1}}" name="IA{{i}}3"required> 
 	<h1></h1>
 {% endfor %}
 <input type="submit" name="submit">
