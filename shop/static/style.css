@@ -31,6 +31,23 @@ nav ul li a:hover:not(.active) {background-color: #984b43;}
 
 a{text-decoration: none}
 
+input[type=answer], select{
+  width: 20%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+  float: left
+}
+
+input[type=numerical], select{
+  width: 10%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+
 input[type=text], select {
   width: 95%;
   padding: 12px;

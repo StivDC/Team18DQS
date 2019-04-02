@@ -2,62 +2,11 @@
 {% block content %}
 <h1>Books</h1>
 
-  <div class="content">
-
-    <div class="dropdown">
-      <span>Sort By</span>
-      <div class="dropdown-content">
-        <a href="{{url_for('home_author_sort_asc')}}">Author Ascending</a>
-        <a href="{{url_for('home_author_sort_desc')}}">Author Descending</a>
-        <a href="{{url_for('home_price_sort_asc')}}">Price Ascending</a>
-        <a href="{{url_for('home_price_sort_desc')}}">Price Descending</a>
-      </div>
-    </div>
-
-    <table style="width:100%;">
-      {% set ns = namespace(check = 1) %}
-      {% for book in books %}
-      {% if ns.check==2 %}
-
-      <td>
-        <a href="{{ url_for('book', book_id=book.id) }}"><img src = "{{ url_for('static', filename='img/' + book.image_file) }}"></a>
-        <a href="{{ url_for('book', book_id=book.id) }}"><h3>{{ book.title }} by {{ book.author.first_name }}&nbsp{{ book.author.last_name}}</h3></a>
-      </tr>
-      </td>
-      {% set ns.check=1 %}
-
-      {% else %}
-        <td>
-          <a href="{{ url_for('book', book_id=book.id) }}"><img src = "{{ url_for('static', filename='img/' + book.image_file) }}"></a>
-          <a href="{{ url_for('book', book_id=book.id) }}"><h3>{{ book.title }} by {{ book.author.first_name }}&nbsp{{ book.author.last_name}}</h3></a>
-        </td>
-        {% set ns.check=2 %}
-      {% endif %}
-      {% endfor %}
-
-  </div>
-
-{% endblock content %}
-
-
-<!-- <div class="left">
-  {% for book in books %}
-  {% if (loop.index % 2) == 1 %}
-  <a href="{{ url_for('book', book_id=book.id) }}"><img src = "{{ url_for('static', filename='img/' + book.image_file) }}"></a>
-
-  <a href="{{ url_for('book', book_id=book.id) }}"><h3>{{ book.title }} by {{ book.author.first_name }}&nbsp{{ book.author.last_name}}</h3></a>
-  <br>
-  {% endif %}
-  {% endfor%}
+<div class="content">
+  <form method="POST" action="/createTest">
+        <input type="numerical" name="nmTests">
+        <input type="submit" name="submit">
+  </form>
 </div>
 
-<div class="right">
-  {% for book in books %}
-  {% if (loop.index % 2) == 0 %}
-  <a href="{{ url_for('book', book_id=book.id) }}"><img src = "{{ url_for('static', filename='img/' + book.image_file) }}"></a>
-
-  <a href="{{ url_for('book', book_id=book.id) }}"><h3>{{ book.title }} by {{ book.author.first_name }}&nbsp{{ book.author.last_name}}</h3></a>
-  <br>
-  {% endif %}
-  {% endfor %}
-</div> -->
+{% endblock content %}

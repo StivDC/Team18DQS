@@ -4,14 +4,36 @@ from shop import app, db
 from shop.models import Author, Book, User, Cart, Wishlist
 from shop.forms import RegistrationForm, LoginForm, takeTestForm
 from flask_login import login_user, current_user, logout_user, login_required
-
+global xTest
+xTest = 0
 
 @app.route("/", methods=['GET','POST'])
-
 @app.route("/home", methods=['GET','POST'])
 def home():
-    books = Book.query.all()
-    return render_template('home.html', books=books, title='My Wonderful Book Shop')
+    return render_template('home.html', title='My Wonderful Book Shop')
+
+
+@app.route("/viewTest", methods=['GET', 'POST'])
+def viewTest():
+    global xTest
+    s1=[]
+    if request.method == 'POST':
+        for i in range(0, int(xTest)):
+            varT = ""
+            varT += "Q"+str(i)
+            s1 += [request.form[varT]]
+    test = s1
+    return render_template('viewTest.html', test=test)
+
+@app.route("/createTest", methods=['GET', 'POST'])
+def createTest():
+    s1=''
+    if request.method == 'POST':
+        # request.form.get("symbol")
+        s1 = request.form['nmTests']
+    global xTest
+    xTest = s1
+    return render_template('createTest.html', xTest=int(xTest))
 
 @app.route("/home_author_sort_asc", methods=['GET','POST'])
 def home_author_sort_asc():
@@ -146,7 +168,6 @@ def delete_book(book_id):
     carts = Cart.query.filter_by(user_id = current_user.id, photo_id= photo_id).first()
     db.session.delete(carts)
     db.session.commit()
-
     flash("The book has been removed from your shopping cart!")
 
     return redirect("/cart")
@@ -162,7 +183,6 @@ def delete_book_w(book_id):
     return redirect("/wishlist")
 
 @app.route("/search", methods=['GET', 'POST'])
-
 def search():
     search=""
     books = Book.query.all()
@@ -173,3 +193,5 @@ def search():
         return render_template('home.html', books=books, title="Search")
     books = Book.query.filter(Book.title.like("%" + search + "%"))
     return render_template('search.html', books=books, title="Search")
+
+
