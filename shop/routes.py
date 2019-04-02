@@ -16,34 +16,47 @@ def home():
 @app.route("/viewTest", methods=['GET', 'POST'])
 def viewTest():
     global xTest
-    s1 = {}
-    s2 = ""
-    s3 = ""
+    testDic = {}
+    testType = ""
+    testName = ""
+    startDate = ""
+    endDate = ""
+    time=0
+
     if request.method == 'POST':
         # Pushes questions and answers into a dictionary
-        s3 = request.form['testName']
-        s2 = request.form['TTest']
+        testName = request.form['testName']
+        testType = request.form['TTest']
+        startDate = request.form['startDateTest']
+        endDate = request.form['endDateTest']
+        time=request.form['timeLimit']
         for i in range(0, int(xTest)):
+
             varQ = ""
             varA = ""
             varQ += "Q"+str(i)
             varA += "A"+str(i)
             varIAL =[]
+
             for j in range(1,4):
+
                 varIA = ""
                 varIA += "IA"+str(i)
                 varIA+=str(j)
                 varIAL.append(request.form[varIA])
-            s1[request.form[varQ]] = request.form[varA], varIAL
-    test = s1
 
-    row = [s1, s2, s3]
-    with open('testDatabase.txt', 'a') as fo:
+            testDic[request.form[varQ]] = request.form[varA], varIAL
+
+    test = testDic
+
+    row = [testName, testType, testDic, startDate, endDate, time]
+    with open('testdatabase.txt', 'a') as fo:
+        fo.write("\n")
         fo.write(str(row))
-        fo.flush()
     fo.close()
 
-    return render_template('viewTest.html', test=test, TTest=s2, testName=s3)
+    return render_template('viewTest.html', test=test, TTest=testType, testName=testName,
+            startDate=startDate, endDate=endDate, timeL=int(time))
 
 @app.route("/createTest", methods=['GET', 'POST'])
 def createTest():
@@ -51,6 +64,9 @@ def createTest():
     if request.method == 'POST':
         # request.form.get("symbol")
         s1 = request.form['nmTests']
+        if int(s1) == 0:
+            flash("Cannot have 0 questions")
+            return redirect('/home')
     global xTest
     xTest = s1
     return render_template('createTest.html', xTest=int(xTest))

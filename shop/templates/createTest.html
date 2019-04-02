@@ -5,13 +5,19 @@
 <div class="content">
 <h1>Workings</h1>
 <form method="POST" action="/viewTest">
-<h1>Input name of test<input type="text" name="testName" required></h1>
+<h1>Input name of test<input type="text" name="testName" required pattern="^([A-Z][a-zA-Z]*)" title="Must start with a captial letter and contain no numbers"></h1>
 <h1>Please input the type of test that you want to create 
 	<select name="TTest">
 		<option value="FTest">Formative test</option>
 		<option value="STest">Summative test</option>
 	</select>
 </h1>
+<h1>Input your release date for test: <input type="date" name="startDateTest" value="2019-04-08"
+       min="2019-04-08" max="2019-12-31"></h1>
+<h1>Input your deadline date:  <input type="date" name="endDateTest" value="2019-04-08"
+       min="2019-04-09" max="2019-12-31"></h1>
+<h1>Input how the time limit on the test: <input type="numerical" name="timeLimit"></h1>
+<h1>Input you questions below:</h1>
 {% for i in range(0, xTest) %}
 	<input type="text" placeholder="Question {{i+1}}" name="Q{{i}}" required> <br>
 	<input type="answer" placeholder="Answer {{i+1}}" name="A{{i}}"required>

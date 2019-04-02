@@ -4,7 +4,8 @@
 
 <div class="content">
   <form method="POST" action="/createTest">
-        <h1>Input how many questions you want:<input type="numerical" name="nmTests"></h1>
+  	
+        <h1>Input how many questions you want:<input type="numerical" name="nmTests" required pattern="^[0-1]?[0-9]$" title="Only integers between 1-19 allowed"></h1>
         <input type="submit" name="submit">
   </form>
 </div>

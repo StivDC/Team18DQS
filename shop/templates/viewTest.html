@@ -11,6 +11,10 @@
 	{% else %}
 	<h1>The test type is: Summative test</h1>
 	{% endif %}
+<h1>The release date will be {{startDate}}</h1>
+<h1>The deadline will be {{endDate}}</h1>
+
+<h1><div>Time until test end: <span id="time">60:00</span> minutes!</div></h1>
 
 {% for x,c in test.items() %}
 
