@@ -8,23 +8,23 @@
   <form method="POST" action="/taketest">
 
     {% for x,c in test.items() %}
-    	<input type="text" placeholder="Question {{x}}" name="Q{{i}}" required> <br>
-      <input type="text" placeholder="Answer {{ c[0] }}" name="{{ c[0] }}">
+    	<h3>Question: {{x}}</h3>
+      <h4>{{ c[0] }}</h4>
       <label class="container">
         <input type="radio" name="radio">
         <span class="checkmark"></span>
       </label>
-    	<input type="answer" placeholder="{{ c[1][0] }}" name="{{ c[1][0] }}">
+    	<h4>{{ c[1][0] }}</h4>
       <label class="container">
         <input type="radio" name="radio">
         <span class="checkmark"></span>
       </label>
-    	<input type="answer" placeholder=" {{ c[1][1] }}" name="{{ c[1][1] }}">
+    	<h4>{{ c[1][1] }}</h4>
       <label class="container">
         <input type="radio" name="radio">
         <span class="checkmark"></span>
       </label>
-    	<input type="answer" placeholder="{{ c[1][3] }}" name="{{ c[1][3] }}">
+    	<h4>{{ c[1][2] }}</h4>
       <label class="container">
         <input type="radio" name="radio">
         <span class="checkmark"></span>
