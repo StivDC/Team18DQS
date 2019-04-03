@@ -22,6 +22,14 @@ def home():
 
     return render_template('home.html', title='My Wonderful Book Shop', tests=tests)
 
+def FindDuplicates(in_list):  
+    unique = set(in_list)  
+    for each in unique:  
+        count = in_list.count(each)  
+        if count > 1:  
+            return True  
+    return False 
+
 @app.route("/viewTest", methods=['GET', 'POST'])
 def viewTest():
     global xTest
@@ -30,7 +38,8 @@ def viewTest():
     testName = ""
     startDate = ""
     endDate = ""
-    time=0
+    checkDup = False
+    varQL = []
 
     if request.method == 'POST':
         # Pushes questions and answers into a dictionary
@@ -38,7 +47,6 @@ def viewTest():
         testType = request.form['TTest']
         startDate = request.form['startDateTest']
         endDate = request.form['endDateTest']
-        time=request.form['timeLimit']
         for i in range(0, int(xTest)):
 
             varQ = ""
@@ -53,19 +61,31 @@ def viewTest():
                 varIA += "IA"+str(i)
                 varIA+=str(j)
                 varIAL.append(request.form[varIA])
+            checkDup = FindDuplicates(varIAL)
 
-            testDic[request.form[varQ]] = request.form[varA], varIAL
+            if checkDup == True:
+                flash("Two of your incorrect answers were the same")
+                return redirect('/home')
+
+            varA = request.form[varA]
+            varQ = request.form[varQ]
+            for item in varIAL:
+                if str(item).lower() == str(varA).lower():
+                    flash("One of you incorrect answers was the same as the correct answers")
+                    return redirect('/home')
+
+            testDic[varQ] = varA, varIAL
 
     test = testDic
 
-    row = [testName, testType, testDic, startDate, endDate, time]
+    row = [testName, testType, testDic, startDate, endDate]
     with open('testdatabase.txt', 'a') as fo:
         fo.write("\n")
         fo.write(str(row))
     fo.close()
 
     return render_template('viewTest.html', test=test, TTest=testType, testName=testName,
-            startDate=startDate, endDate=endDate, timeL=int(time))
+            startDate=startDate, endDate=endDate)
 
 @app.route("/createTest", methods=['GET', 'POST'])
 def createTest():
@@ -99,7 +119,11 @@ def taketest():
         temp = [test.find("{")+1:test.find("}")]
         flash(temp)
 
+<<<<<<< HEAD
+    return render_template('taketest.html', test=test)
+=======
     return render_template('takeTest.html', test=test)
+>>>>>>> f63a472941821e203e9217f38fe6208713a7172b
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
