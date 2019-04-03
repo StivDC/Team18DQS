@@ -8,6 +8,46 @@ from flask_login import login_user, current_user, logout_user, login_required
 global xTest
 xTest = 0
 
+def loginLS(userInput, userInput2):
+    if userInput.startswith("s"):
+
+        with open('StudentAccounts.txt') as f:
+            studentFile = f.readlines()
+            for student in studentFile:
+                stdId, stdPass = student.strip().split(" ",1)        
+    
+            with open('StudentAccounts.txt') as f:
+                for line in f:
+                    stdId, stdPass = line.strip().split()
+                    if userInput == stdId:
+                        if userInput2 == stdPass:
+                            flash("Access Granted")
+                            return "/studentP"
+                    else:
+                        flash("--Wrong Username or Password--")
+                        return "/home"
+
+    else:
+
+        with open('LecturerAccounts.txt') as h:
+            lecturerFile = h.readlines()
+            for lecturer in lecturerFile:
+                lctId, lctPass = lecturer.strip().split(" ",1)
+    
+            with open('LecturerAccounts.txt') as h:
+                for line in h:
+                    lctId, lctPass = line.strip().split()
+                    if userInput == lctId:
+                        if userInput2 == lctPass:
+                            flash("Access Granted")
+                            return "/lecturerP"
+                    else:
+                        flash("--Wrong Username or Password--")
+                        return "/home"
+
+
+
+
 def readDBName():
     tests = []
 
@@ -18,11 +58,30 @@ def readDBName():
     fo.close()
     return tests
 
+@app.route("/advancedresults", methods=['GET','POST'])
+def advancedresults():
+    return render_template('advancedresults.html')
+
+@app.route("/feedback", methods=['GET','POST'])
+def feedback():
+    return render_template('feedback.html')
+
 @app.route("/", methods=['GET','POST'])
 @app.route("/home", methods=['GET','POST'])
 def home():
-    tests=readDBName()
-    return render_template('home.html', title='Create test', tests=tests)
+    userinput = ''
+    userinput2 = ''
+    LSF = ""
+    if request.method == 'POST':
+        userinput = request.form['userinput']
+        userinput2 = request.form['userinput2']
+    LSF = loginLS(userinput, userinput2)
+    if LSF == "/studentP":
+        return render_template('studentP.html')
+    elif LSF == "/lecturerP":
+        return render_template('lecturerP.html')
+
+    return render_template('home.html', title='Create test', page=LSF)
 
 def FindDuplicates(in_list):
     unique = set(in_list)
@@ -31,6 +90,16 @@ def FindDuplicates(in_list):
         if count > 1:
             return True
     return False
+
+@app.route("/lecturerP", methods=['GET', 'POST'])
+def lecturerP():
+    return render_template('lecturerP.html')
+
+@app.route("/studentP", methods=['GET', 'POST'])
+def studentP():
+    tests=readDBName()
+
+    return render_template('studentP.html', tests=tests)
 
 @app.route("/viewTest", methods=['GET', 'POST'])
 def viewTest():
@@ -67,21 +136,21 @@ def viewTest():
 
             if checkDup == True:
                 flash("Two of your incorrect answers were the same")
-                return redirect('/home')
+                return redirect('/lecturerP')
 
             varA = request.form[varA]
             varQ = request.form[varQ]
             for item in varIAL:
                 if str(item).lower() == str(varA).lower():
                     flash("One of you incorrect answers was the same as the correct answers")
-                    return redirect('/home')
+                    return redirect('/lecturerP')
 
             testDic[varQ] = varA, varIAL
     TNames = readDBName()
     for names in TNames:
         if str(testName) == str(names):
             flash("There is already a test name like this")
-            return redirect('/home')
+            return redirect('/lecturerP')
     test = testDic
 
     row = [testName, testType, startDate, endDate, testDic]
@@ -141,6 +210,8 @@ def register():
         return redirect(url_for('home'))
 
     return render_template('register.html', title='Register', form=form)
+
+
 
 @app.route("/login", methods=['GET','POST'])
 def login():

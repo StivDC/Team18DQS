@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+{% block content %}
+
+  <div class="content">
+
+    <h1>Lectuer page</h1>
+    
+
+  <form method="POST" action="/createTest">
+
+        <h1>Input how many questions you want:<input type="numerical" name="nmTests" required pattern="^[3-9]|10$" title="minimum of 3 questions and maximum of 10 (in integers)"><input type="submit" name="submit" value="Submit question number"></h1>
+        
+  </form>
+
+  <form method="POST" action="/advancedresults">
+  	<input type="submit" name="advResults" value="Click to go to advanced results page">
+  </form>
+  </div>
+
+{% endblock content %}
