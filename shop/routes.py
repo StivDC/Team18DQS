@@ -85,7 +85,7 @@ def viewTest():
     fo.close()
 
     return render_template('viewTest.html', test=test, TTest=testType, testName=testName,
-            startDate=startDate, endDate=endDate)
+            startDate=startDate, endDate=endDate, xTest=int(xTest))
 
 @app.route("/createTest", methods=['GET', 'POST'])
 def createTest():
@@ -116,13 +116,6 @@ def taketest():
                 if temp[1] == testName:
                     test = lines
                     print(test)
-
-
-<<<<<<< HEAD
-    return render_template('taketest.html', test=test)
-=======
-    return render_template('takeTest.html', test=test)
->>>>>>> f63a472941821e203e9217f38fe6208713a7172b
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
