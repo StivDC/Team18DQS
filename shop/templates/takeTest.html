@@ -8,7 +8,7 @@
   <h1><div>Time until test end: <span id="time">60:00</span> minutes!</div></h1>
 
   <form method="POST" action="/taketest">
-    <table style="float:left;"
+    <table style="float:left;">
       {% for x,c in test.items() %}
       	<tr>
           <th>Question: {{x}}</th>
@@ -42,7 +42,7 @@
             </td>
         </tr>
       {% endfor %}
-    </table
+    </table>
     <br>
     <input type="submit" name="testSubmit" value="Submit Test">
   </form>
