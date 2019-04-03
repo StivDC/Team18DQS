@@ -10,6 +10,8 @@ global testName
 testName = ''
 global attemptsAtTest
 global currentUser
+global testType
+testType = ""
 
 def loginLS(userInput, userInput2):
     global currentUser
@@ -110,7 +112,8 @@ def feedback():
                 count+=1
 
     totalmark=len(s1)
-    row = [testName, currentUser, count, totalmark]
+    row = [testName, testType, currentUser, count, totalmark]
+
     with open('result.txt', 'r+') as fo:
         for lines in fo:
             temp = str(lines)
@@ -123,15 +126,15 @@ def feedback():
             line.append(temp)
 
         for lines in line:
-            print(lines[0], lines[1], testName, currentUser)
+            print(lines[2], 'STest')
             if lines[0] == testName:
-                if lines[1] == currentUser:
-                    flash("You have already taken this test")
-                    return redirect("/home")
+                if lines[2] == currentUser:
+                    if lines[1] == 'STest':
+                        flash("You have already taken this test")
+                        return redirect("/home")
 
-    fo.write("\n")
-    fo.write(str(row))
-    fo.close
+        fo.write(str(row) + "\n")
+        fo.close
 
     return render_template('feedback.html', i=s1, count=count, totalmark=len(s1))
 
@@ -174,7 +177,7 @@ def studentP():
 def viewTest():
     testDic = {}
     global xTest
-    testType = ""
+    global testType
     testName = ""
     startDate = ""
     endDate = ""
@@ -224,8 +227,7 @@ def viewTest():
 
     row = [testName, testType, startDate, endDate, testDic]
     with open('testdatabase.txt', 'a') as fo:
-        fo.write("\n")
-        fo.write(str(row))
+        fo.write(str(row) + "\n")
     fo.close()
 
     return render_template('viewTest.html', test=test, TTest=testType, testName=testName,
