@@ -108,7 +108,7 @@ def taketest():
     # display test
     # on submit record studentID testID results etc to file
     if request.method == 'POST':
-        testName = request.form['testName']
+        testName = request.form['testChoice']
 
         with open('testdatabase.txt') as fo:
             for lines in fo:
@@ -116,6 +116,10 @@ def taketest():
                 if temp[1] == testName:
                     test = lines
                     print(test)
+                    test = str(lines)
+        flash(test)
+        temp = [test.find("{")+1:test.find("}")]
+        flash(temp)
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
