@@ -22,13 +22,13 @@ def home():
 
     return render_template('home.html', title='My Wonderful Book Shop', tests=tests)
 
-def FindDuplicates(in_list):  
-    unique = set(in_list)  
-    for each in unique:  
-        count = in_list.count(each)  
-        if count > 1:  
-            return True  
-    return False 
+def FindDuplicates(in_list):
+    unique = set(in_list)
+    for each in unique:
+        count = in_list.count(each)
+        if count > 1:
+            return True
+    return False
 
 @app.route("/viewTest", methods=['GET', 'POST'])
 def viewTest():
@@ -78,7 +78,7 @@ def viewTest():
 
     test = testDic
 
-    row = [testName, testType, testDic, startDate, endDate]
+    row = [testName, testType, startDate, endDate, testDic]
     with open('testdatabase.txt', 'a') as fo:
         fo.write("\n")
         fo.write(str(row))
@@ -114,16 +114,14 @@ def taketest():
             for lines in fo:
                 temp = lines.split("'")
                 if temp[1] == testName:
-                    test = str(lines)
-        flash(test)
-        temp = [test.find("{")+1:test.find("}")]
-        flash(temp)
+                    test = lines
 
-<<<<<<< HEAD
-    return render_template('taketest.html', test=test)
-=======
+        start = test.find('{')
+        end = test.find('}')
+
+    flash(test[start:end])
+
     return render_template('takeTest.html', test=test)
->>>>>>> f63a472941821e203e9217f38fe6208713a7172b
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
