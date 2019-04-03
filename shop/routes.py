@@ -46,7 +46,6 @@ def viewTest():
                 varIAL.append(request.form[varIA])
 
             testDic[request.form[varQ]] = request.form[varA], varIAL
-
     test = testDic
 
     row = [testName, testType, testDic, startDate, endDate, time]
