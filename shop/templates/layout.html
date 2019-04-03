@@ -20,7 +20,7 @@
 }
 
 window.onload = function () {
-    var fiveMinutes = 60 * 60,
+    var fiveMinutes = 60 * 60 ,
         display = document.querySelector('#time');
     startTimer(fiveMinutes, display);
 };
@@ -28,17 +28,12 @@ window.onload = function () {
     <meta charset="utf-8">
     <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <title>Book Store</title>
+    <title>Team 28 DQS</title>
   </head>
   <body>
     <nav>
       <ul>
         <li><a href="{{url_for('home')}}">Home</a></li>
-        <div class="search-container">
-          <form method="POST" action="/search">
-            <input type="text" placeholder="Search.." name="searchEntry">
-          </form>
-        </div>
         {% if current_user.is_authenticated %}
         <li class="right"><a href="{{ url_for('logout') }}">Log out</a></li>
         {% else %}
