@@ -82,6 +82,7 @@ def createTest():
 
 @app.route("/taketest", methods=['GET', 'POST'])
 def taketest():
+    test = []
     # take test testName
     # load test from file
     # display test
@@ -97,7 +98,7 @@ def taketest():
                     print(test)
 
 
-    return render_template('taketest.html', test=test)
+    return render_template('takeTest.html', test=test)
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
