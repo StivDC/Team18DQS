@@ -107,10 +107,9 @@ def feedback():
             if str(j) == str(a1[l][0]):
                 count+=1
 
-
     totalmark=len(s1)
-
     row = [testName, currentUser, count, totalmark]
+
     with open('result.txt', 'w') as fo:
         fo.write("\n")
         fo.write(str(row))
