@@ -4,26 +4,24 @@
 <div class="content">
 
   <h1>{{testName}}</h1>
-  {%z = "1"%}
-  <h1>{z}</h1>
   
   <h1><div>Time until test end: <span id="time">60:00</span> minutes!</div></h1>
 
   <form method="POST" action="/feedback">
     <table style="float:left;">
-      {% for x,c in test.items() %}
+      {% for x,c,i in zip(test.keys(), test.values(), range(numbertest)) %}
       	<tr>
           <th>Question: {{x}}</th>
         </tr>
-
+        <h1>{{i}}</h1>
         <tr>
-            <td> <p>{{c[0]}}</p>
+            <td class="group{{i}}"> <p>{{c[0]}}</p>
               <label class="container">
                 <input type="radio" name="{{x}}">
                 <span class="checkmark"></span>
               </label>
             </td>
-            <td> <p>{{c[1][0]}}</p>
+            <td class="group{{i}}"> <p>{{c[1][0]}}</p>
               <label class="container">
                 <input type="radio" name="{{x}}">
                 <span class="checkmark"></span>
@@ -31,13 +29,13 @@
             </td>
         </tr>
         <tr>
-            <td> <p>{{c[1][1]}}</p>
+            <td class="group{{i}}"> <p>{{c[1][1]}}</p>
               <label class="container">
                 <input type="radio" name="{{x}}">
                 <span class="checkmark"></span>
               </label>
             </td>
-            <td> <p>{{c[1][2]}}</p>
+            <td class="group{{i}}"> <p>{{c[1][2]}}</p>
               <label class="container">
                 <input type="radio" name="{{x}}">
                 <span class="checkmark"></span>
@@ -46,6 +44,14 @@
         </tr>
       {% endfor %}
     </table>
+<script type="text/javascript">
+
+window.onload=function(){
+//randomize order of contents with DIV class="group1"
+randomizeContent("group{{i}}")
+}
+
+</script>
     <br>
     <input type="submit" name="testSubmit" value="Submit Test">
   </form>

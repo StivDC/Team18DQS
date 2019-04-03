@@ -1,14 +1,13 @@
 import ast
 import os
-from flask import render_template, url_for, request, redirect, flash, session
-from shop import app, db
-from shop.models import User
-from shop.forms import RegistrationForm, LoginForm, takeTestForm
-from flask_login import login_user, current_user, logout_user, login_required
+from flask import render_template, url_for, request, redirect, flash
+from shop import app
 global xTest
 xTest = 0
 
 def loginLS(userInput, userInput2):
+    if userInput == '' and userInput2 == '':
+        return "/home"
     if userInput.startswith("s"):
 
         with open('StudentAccounts.txt') as f:
@@ -77,9 +76,9 @@ def home():
         userinput2 = request.form['userinput2']
     LSF = loginLS(userinput, userinput2)
     if LSF == "/studentP":
-        return render_template('studentP.html')
+        return redirect('/studentP')
     elif LSF == "/lecturerP":
-        return render_template('lecturerP.html')
+        return redirect('/lecturerP')
 
     return render_template('home.html', title='Create test', page=LSF)
 
@@ -196,40 +195,4 @@ def taketest():
     test = test[start:end+1]
     test = ast.literal_eval(test)
 
-    return render_template('takeTest.html', test=test, testName=testName)
-
-
-@app.route("/register", methods=['GET', 'POST'])
-def register():
-    form = RegistrationForm()
-    if form.validate_on_submit():
-        user = User(username=form.username.data, email=form.email.data, password=form.password.data, first_name=form.first_name.data, surname=form.surname.data)
-        db.session.add(user)
-        db.session.commit()
-        flash('Your account has been created.  You can now log in.')
-        return redirect(url_for('home'))
-
-    return render_template('register.html', title='Register', form=form)
-
-
-
-@app.route("/login", methods=['GET','POST'])
-def login():
-    form = LoginForm()
-    if form.validate_on_submit():
-        user = User.query.filter_by(email=form.email.data).first()
-
-        if user is not None and user.verify_password(form.password.data):
-            login_user(user)
-            flash('You are now logged in.')
-            return redirect(url_for('home'))
-        flash('Invalid username or password.')
-
-        return render_template('login.html', form=form)
-
-    return render_template('login.html', title='Login', form=form)
-
-@app.route("/logout")
-def logout():
-    logout_user()
-    return redirect(url_for('home'))
+    return render_template('takeTest.html', test=test, testName=testName, numbertest=len(test), zip=zip)
