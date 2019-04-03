@@ -4,6 +4,10 @@ from flask import render_template, url_for, request, redirect, flash
 from shop import app
 global xTest
 xTest = 0
+global nmOfTest
+nmOfTest = 0
+global testName
+testName = ''
 
 def loginLS(userInput, userInput2):
     if userInput == '' and userInput2 == '':
@@ -45,7 +49,22 @@ def loginLS(userInput, userInput2):
                         return "/home"
 
 
+def readDBA():
+    answ=[]
+    global testName
+    with open('testdatabase.txt') as fo:
+        for lines in fo:
+            temp = lines.split("'")
+            if temp[1] == testName:
+                answers = lines
+    start = answers.find('{')
+    end = answers.find('}')
 
+    answers = answers[start:end+1]
+    answers = ast.literal_eval(answers)
+    for i in answers.values():
+        answ.append(i)
+    return answ
 
 def readDBName():
     tests = []
@@ -59,11 +78,28 @@ def readDBName():
 
 @app.route("/advancedresults", methods=['GET','POST'])
 def advancedresults():
+    flash(sort())
     return render_template('advancedresults.html')
 
 @app.route("/feedback", methods=['GET','POST'])
 def feedback():
-    return render_template('feedback.html')
+    global nmOfTest
+    global testDic
+    s1=[]
+    count=0
+
+    if request.method == 'POST':
+        for i in range(nmOfTest):
+            i = str(i)
+            s1.append(request.form[i])
+    a1 = readDBA()
+
+    for l in range(len(a1)):
+        for j in s1:
+            if str(j) == str(a1[l][0]):
+                count+=1
+
+    return render_template('feedback.html', i=s1, count=count, totalmark=len(s1))
 
 @app.route("/", methods=['GET','POST'])
 @app.route("/home", methods=['GET','POST'])
@@ -102,8 +138,8 @@ def studentP():
 
 @app.route("/viewTest", methods=['GET', 'POST'])
 def viewTest():
-    global xTest
     testDic = {}
+    global xTest
     testType = ""
     testName = ""
     startDate = ""
@@ -176,7 +212,9 @@ def createTest():
 
 @app.route("/taketest", methods=['GET', 'POST'])
 def taketest():
+    global nmOfTest
     test = []
+    global testName
     # take test testName
     # load test from file
     # display test
@@ -194,5 +232,59 @@ def taketest():
 
     test = test[start:end+1]
     test = ast.literal_eval(test)
-
+    nmOfTest = len(test)
     return render_template('takeTest.html', test=test, testName=testName, numbertest=len(test), zip=zip)
+
+import csv
+import requests
+
+
+biglist = [] 
+with open ('data.csv', 'r') as csvfile:
+    csvreader = csv.reader(csvfile)
+    next(csvreader)
+    for row in csvreader: 
+        biglist.append(row)
+
+
+def sort(biglist):
+    biglist.sort(key=lambda x: x[1])
+    return biglist
+
+
+
+def match(x):
+    test_list= [] 
+    counter_1 = 0
+    for x in biglist:
+            while biglist[counter_1][1] == biglist[counter_1+1][1]:
+                   test_list.append(biglist[counter_1])
+                   counter_1 += 1
+    test_list.append(biglist[counter_1])            
+    return test_list
+        
+
+
+def average(x):
+    counter_3 = 0
+    counter_2 = 0 
+    total = 0
+    for i in test_list:
+            counter_3 +=1
+            questionno = i[3]
+            counter_2 += int(i[2])
+            average = ((float(counter_2) / float((questionno))))
+            total += average
+            print(total)
+            final = (float(total) / float(counter_3) * 100)
+            counter_2 = 0
+    return float(final)
+
+def attempts_per_student(x):
+    counter_4 = 0
+    counter_5 = 0
+    for i in test_list:
+            counter_4 +=1
+            counter_5 += int(i[4])
+    attempts = float(counter_5) / float(counter_4)
+    return float(attempts)

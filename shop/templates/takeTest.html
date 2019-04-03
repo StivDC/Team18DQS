@@ -11,18 +11,18 @@
     <table style="float:left;">
       {% for x,c,i in zip(test.keys(), test.values(), range(numbertest)) %}
       	<tr>
-          <th>Question: {{x}}</th>
+          <th>Question: {{x}}?</th>
         </tr>
         <tr>
-            <td class="{{i}}"> <p>{{c[0]}}</p>
-              <label class="container">
-                <input type="radio" name="{{x}}">
+            <td class="{{i}}"><p>{{c[0]}}</p>
+              <label class="container"> 
+                <input type="radio" name="{{i}}" value="{{c[0]}}">
                 <span class="checkmark"></span>
               </label>
             </td>
             <td class="{{i}}"> <p>{{c[1][0]}}</p>
               <label class="container">
-                <input type="radio" name="{{x}}">
+                <input type="radio" name="{{i}}" value="{{c[1][0]}}">
                 <span class="checkmark"></span>
               </label>
             </td>
@@ -30,19 +30,20 @@
         <tr >
             <td class="{{i}}"> <p>{{c[1][1]}}</p>
               <label class="container">
-                <input type="radio" name="{{x}}">
+                <input type="radio" name="{{i}}" value="{{c[1][1]}}">
                 <span class="checkmark"></span>
               </label>
             </td>
             <td class="{{i}}"> <p>{{c[1][2]}}</p>
               <label class="container">
-                <input type="radio" name="{{x}}">
+                <input type="radio" name="{{i}}" value="{{c[1][2]}}">
                 <span class="checkmark"></span>
               </label>
             </td>
         </tr>
       {% endfor %}
     </table>
+
 <script type="text/javascript">
 randomizeContent("0")
 randomizeContent("1")
