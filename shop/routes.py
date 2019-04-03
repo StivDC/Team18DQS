@@ -11,7 +11,16 @@ xTest = 0
 @app.route("/", methods=['GET','POST'])
 @app.route("/home", methods=['GET','POST'])
 def home():
-    return render_template('home.html', title='My Wonderful Book Shop')
+
+    tests = []
+
+    with open('testdatabase.txt', 'r') as fo:
+        for lines in fo:
+            temp = lines.split("'")
+            tests.append(temp[1])
+    fo.close()
+
+    return render_template('home.html', title='My Wonderful Book Shop', tests=tests)
 
 @app.route("/viewTest", methods=['GET', 'POST'])
 def viewTest():
@@ -72,6 +81,11 @@ def createTest():
 
 @app.route("/taketest", methods=['GET', 'POST'])
 def taketest():
+    # take test testName
+    # load test from file
+    # display test
+    # on submit record studentID testID results etc to file
+
     global xTest
     s1={}
     if request.method == 'POST':
