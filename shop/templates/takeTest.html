@@ -13,29 +13,28 @@
       	<tr>
           <th>Question: {{x}}</th>
         </tr>
-        <h1>{{i}}</h1>
         <tr>
-            <td class="group{{i}}"> <p>{{c[0]}}</p>
+            <td class="{{i}}"> <p>{{c[0]}}</p>
               <label class="container">
                 <input type="radio" name="{{x}}">
                 <span class="checkmark"></span>
               </label>
             </td>
-            <td class="group{{i}}"> <p>{{c[1][0]}}</p>
+            <td class="{{i}}"> <p>{{c[1][0]}}</p>
               <label class="container">
                 <input type="radio" name="{{x}}">
                 <span class="checkmark"></span>
               </label>
             </td>
         </tr>
-        <tr>
-            <td class="group{{i}}"> <p>{{c[1][1]}}</p>
+        <tr >
+            <td class="{{i}}"> <p>{{c[1][1]}}</p>
               <label class="container">
                 <input type="radio" name="{{x}}">
                 <span class="checkmark"></span>
               </label>
             </td>
-            <td class="group{{i}}"> <p>{{c[1][2]}}</p>
+            <td class="{{i}}"> <p>{{c[1][2]}}</p>
               <label class="container">
                 <input type="radio" name="{{x}}">
                 <span class="checkmark"></span>
@@ -45,11 +44,16 @@
       {% endfor %}
     </table>
 <script type="text/javascript">
-
-window.onload=function(){
-//randomize order of contents with DIV class="group1"
-randomizeContent("group{{i}}")
-}
+randomizeContent("0")
+randomizeContent("1")
+randomizeContent("2")
+randomizeContent("3")
+randomizeContent("4")
+randomizeContent("5")
+randomizeContent("6")
+randomizeContent("7")
+randomizeContent("8")
+randomizeContent("9")
 
 </script>
     <br>
