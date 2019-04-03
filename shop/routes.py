@@ -8,6 +8,7 @@ global nmOfTest
 nmOfTest = 0
 global testName
 testName = ''
+global attemptsAtTest
 
 def loginLS(userInput, userInput2):
     if userInput == '' and userInput2 == '':
@@ -78,11 +79,12 @@ def readDBName():
 
 @app.route("/advancedresults", methods=['GET','POST'])
 def advancedresults():
-    flash(sort())
+
     return render_template('advancedresults.html')
 
 @app.route("/feedback", methods=['GET','POST'])
 def feedback():
+    global attemptsAtTest
     global nmOfTest
     global testDic
     s1=[]
@@ -98,7 +100,7 @@ def feedback():
         for j in s1:
             if str(j) == str(a1[l][0]):
                 count+=1
-
+    attemptsAtTest +=1
     return render_template('feedback.html', i=s1, count=count, totalmark=len(s1))
 
 @app.route("/", methods=['GET','POST'])
@@ -234,57 +236,3 @@ def taketest():
     test = ast.literal_eval(test)
     nmOfTest = len(test)
     return render_template('takeTest.html', test=test, testName=testName, numbertest=len(test), zip=zip)
-
-import csv
-import requests
-
-
-biglist = [] 
-with open ('data.csv', 'r') as csvfile:
-    csvreader = csv.reader(csvfile)
-    next(csvreader)
-    for row in csvreader: 
-        biglist.append(row)
-
-
-def sort(biglist):
-    biglist.sort(key=lambda x: x[1])
-    return biglist
-
-
-
-def match(x):
-    test_list= [] 
-    counter_1 = 0
-    for x in biglist:
-            while biglist[counter_1][1] == biglist[counter_1+1][1]:
-                   test_list.append(biglist[counter_1])
-                   counter_1 += 1
-    test_list.append(biglist[counter_1])            
-    return test_list
-        
-
-
-def average(x):
-    counter_3 = 0
-    counter_2 = 0 
-    total = 0
-    for i in test_list:
-            counter_3 +=1
-            questionno = i[3]
-            counter_2 += int(i[2])
-            average = ((float(counter_2) / float((questionno))))
-            total += average
-            print(total)
-            final = (float(total) / float(counter_3) * 100)
-            counter_2 = 0
-    return float(final)
-
-def attempts_per_student(x):
-    counter_4 = 0
-    counter_5 = 0
-    for i in test_list:
-            counter_4 +=1
-            counter_5 += int(i[4])
-    attempts = float(counter_5) / float(counter_4)
-    return float(attempts)
