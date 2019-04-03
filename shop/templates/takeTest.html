@@ -3,9 +3,72 @@
 
 <div class="content">
 
-  <h2>Test</h2>
+  <h1>{{testName}}</h1>
 
+  <h1><div>Time until test end: <span id="time">60:00</span> minutes!</div></h1>
 
+  <form method="POST" action="/taketest">
+    <table style="float:left;"
+      {% for x,c in test.items() %}
+      	<tr>
+          <th>Question: {{x}}</th>
+        </tr>
+        <tr>
+            <td> <p>{{c[0]}}</p>
+              <label class="container">
+                <input type="radio" name="{{x}}">
+                <span class="checkmark"></span>
+              </label>
+            </td>
+            <td> <p>{{c[1][0]}}</p>
+              <label class="container">
+                <input type="radio" name="{{x}}">
+                <span class="checkmark"></span>
+              </label>
+            </td>
+        </tr>
+        <tr>
+            <td> <p>{{c[1][1]}}</p>
+              <label class="container">
+                <input type="radio" name="{{x}}">
+                <span class="checkmark"></span>
+              </label>
+            </td>
+            <td> <p>{{c[1][2]}}</p>
+              <label class="container">
+                <input type="radio" name="{{x}}">
+                <span class="checkmark"></span>
+              </label>
+            </td>
+        </tr>
+      {% endfor %}
+    </table
+    <br>
+    <input type="submit" name="testSubmit" value="Submit Test">
+  </form>
 </div>
 
 {% endblock content %}
+
+
+<!-- <h3>Question: {{x}}</h3>
+<hp>{{ c[0] }}</h4>
+<label class="container">
+  <input type="radio" name="radio">
+  <span class="checkmark"></span>
+</label>
+<h4>{{ c[1][0] }}</h4>
+<label class="container">
+  <input type="radio" name="radio">
+  <span class="checkmark"></span>
+</label>
+<h4>{{ c[1][1] }}</h4>
+<label class="container">
+  <input type="radio" name="radio">
+  <span class="checkmark"></span>
+</label>
+<h4>{{ c[1][2] }}</h4>
+<label class="container">
+  <input type="radio" name="radio">
+  <span class="checkmark"></span>
+</label> -->

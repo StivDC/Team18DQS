@@ -1,4 +1,4 @@
-import csv
+import ast
 import os
 from flask import render_template, url_for, request, redirect, flash, session
 from shop import app, db
@@ -124,9 +124,10 @@ def taketest():
         start = test.find('{')
         end = test.find('}')
 
-    flash(test[start:end])
+    test = test[start:end+1]
+    test = ast.literal_eval(test)
 
-    return render_template('takeTest.html', test=test)
+    return render_template('takeTest.html', test=test, testName=testName)
 
 
 @app.route("/register", methods=['GET', 'POST'])
