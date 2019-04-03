@@ -95,6 +95,8 @@ def feedback():
     global currentUser
     s1=[]
     count=0
+    temp = []
+    line = []
 
     if request.method == 'POST':
         for i in range(nmOfTest):
@@ -109,10 +111,26 @@ def feedback():
 
     totalmark=len(s1)
     row = [testName, currentUser, count, totalmark]
+    with open('result.txt', 'r+') as fo:
+        for lines in fo:
+            temp = str(lines)
+            temp = temp.replace("[","")
+            temp = temp.replace("]","")
+            temp = temp.replace("\n","")
+            temp = temp.replace("'","")
+            temp = temp.replace(" ","")
+            temp = temp.split(',')
+            line.append(temp)
 
-    with open('result.txt', 'w') as fo:
-        fo.write("\n")
-        fo.write(str(row))
+        for lines in line:
+            print(lines[0], lines[1], testName, currentUser)
+            if lines[0] == testName:
+                if lines[1] == currentUser:
+                    flash("You have already taken this test")
+                    return redirect("/home")
+
+    fo.write("\n")
+    fo.write(str(row))
     fo.close
 
     return render_template('feedback.html', i=s1, count=count, totalmark=len(s1))
