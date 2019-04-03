@@ -8,10 +8,7 @@ from flask_login import login_user, current_user, logout_user, login_required
 global xTest
 xTest = 0
 
-@app.route("/", methods=['GET','POST'])
-@app.route("/home", methods=['GET','POST'])
-def home():
-
+def readDBName():
     tests = []
 
     with open('testdatabase.txt', 'r') as fo:
@@ -19,7 +16,12 @@ def home():
             temp = lines.split("'")
             tests.append(temp[1])
     fo.close()
+    return tests
 
+@app.route("/", methods=['GET','POST'])
+@app.route("/home", methods=['GET','POST'])
+def home():
+    tests=readDBName()
     return render_template('home.html', title='My Wonderful Book Shop', tests=tests)
 
 def FindDuplicates(in_list):
@@ -75,7 +77,11 @@ def viewTest():
                     return redirect('/home')
 
             testDic[varQ] = varA, varIAL
-
+    TNames = readDBName()
+    for names in TNames:
+        if str(testName) == str(names):
+            flash("There is already a test name like this")
+            return redirect('/home')
     test = testDic
 
     row = [testName, testType, startDate, endDate, testDic]
