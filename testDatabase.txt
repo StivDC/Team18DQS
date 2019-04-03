@@ -2,3 +2,4 @@
 ['Testname2', 'FTest', '2019-04-10', '2019-04-11', '60', {'Question1': ('Answer1', ['Answer2', 'Answer3', 'Answer4']), 'Question2': ('Answer1', ['Answer2', 'Answer3', 'Answer4'])}]
 ['Testname3', 'FTest', '2019-04-10', '2019-04-11', '60', {'Question1': ('Answer1', ['Answer2', 'Answer3', 'Answer4']), 'Question2': ('Answer1', ['Answer2', 'Answer3', 'Answer4'])}]
 ['Qw', 'FTest', '2019-04-08', '2019-04-09', {'w': ('d', ['w', 'q', 'v'])}]
+['Questionnaire', 'FTest', '2019-04-08', '2019-04-11', {'Q1': ('a1', ['a2', 'a3', 'a4']), 'Q2': ('b1', ['b2', 'b3', 'b4']), 'Q3': ('c1', ['c2', 'c3', 'c4'])}]
