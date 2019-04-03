@@ -73,6 +73,11 @@ def createTest():
 
 @app.route("/taketest", methods=['GET', 'POST'])
 def taketest():
+    # take test testName
+    # load test from file
+    # display test
+    # on submit record studentID testID results etc to file
+
     global xTest
     s1={}
     if request.method == 'POST':
