@@ -9,8 +9,10 @@ nmOfTest = 0
 global testName
 testName = ''
 global attemptsAtTest
+global currentUser
 
 def loginLS(userInput, userInput2):
+    global currentUser
     if userInput == '' and userInput2 == '':
         return "/home"
     if userInput.startswith("s"):
@@ -18,14 +20,15 @@ def loginLS(userInput, userInput2):
         with open('StudentAccounts.txt') as f:
             studentFile = f.readlines()
             for student in studentFile:
-                stdId, stdPass = student.strip().split(" ",1)        
-    
+                stdId, stdPass = student.strip().split(" ",1)
+
             with open('StudentAccounts.txt') as f:
                 for line in f:
                     stdId, stdPass = line.strip().split()
                     if userInput == stdId:
                         if userInput2 == stdPass:
                             flash("Access Granted")
+                            currentUser = userInput
                             return "/studentP"
                     else:
                         flash("--Wrong Username or Password--")
@@ -37,13 +40,14 @@ def loginLS(userInput, userInput2):
             lecturerFile = h.readlines()
             for lecturer in lecturerFile:
                 lctId, lctPass = lecturer.strip().split(" ",1)
-    
+
             with open('LecturerAccounts.txt') as h:
                 for line in h:
                     lctId, lctPass = line.strip().split()
                     if userInput == lctId:
                         if userInput2 == lctPass:
                             flash("Access Granted")
+                            currentUser = userInput
                             return "/lecturerP"
                     else:
                         flash("--Wrong Username or Password--")
@@ -53,6 +57,7 @@ def loginLS(userInput, userInput2):
 def readDBA():
     answ=[]
     global testName
+    answers = ""
     with open('testdatabase.txt') as fo:
         for lines in fo:
             temp = lines.split("'")
@@ -87,6 +92,7 @@ def feedback():
     global attemptsAtTest
     global nmOfTest
     global testDic
+    global currentUser
     s1=[]
     count=0
 
@@ -100,7 +106,16 @@ def feedback():
         for j in s1:
             if str(j) == str(a1[l][0]):
                 count+=1
-    attemptsAtTest +=1
+
+
+    totalmark=len(s1)
+
+    row = [testName, currentUser, count, totalmark]
+    with open('result.txt', 'w') as fo:
+        fo.write("\n")
+        fo.write(str(row))
+    fo.close
+
     return render_template('feedback.html', i=s1, count=count, totalmark=len(s1))
 
 @app.route("/", methods=['GET','POST'])
