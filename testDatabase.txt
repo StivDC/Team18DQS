@@ -1,3 +1,15 @@
+<<<<<<< HEAD
 ['Testname1', 'FTest', '2019-04-10', '2019-04-11', '60', {'Question1': ('Answer1', ['Answer2', 'Answer3', 'Answer4']), 'Question2': ('Answer1', ['Answer2', 'Answer3', 'Answer4'])}]
 ['Testname2', 'FTest', '2019-04-10', '2019-04-11', '60', {'Question1': ('Answer1', ['Answer2', 'Answer3', 'Answer4']), 'Question2': ('Answer1', ['Answer2', 'Answer3', 'Answer4'])}]
 ['Testname3', 'FTest', '2019-04-10', '2019-04-11', '60', {'Question1': ('Answer1', ['Answer2', 'Answer3', 'Answer4']), 'Question2': ('Answer1', ['Answer2', 'Answer3', 'Answer4'])}]
+=======
+['Testname1', 'FTest', {'Question1': ('Answer1', ['Answer2', 'Answer3', 'Answer4']), 'Question2': ('Answer1', ['Answer2', 'Answer3', 'Answer4'])}, '2019-04-10', '2019-04-11', '60']
+['Testname2', 'FTest', {'Question1': ('Answer1', ['Answer2', 'Answer3', 'Answer4']), 'Question2': ('Answer1', ['Answer2', 'Answer3', 'Answer4'])}, '2019-04-10', '2019-04-11', '60']
+['Testname3', 'FTest', {'Question1': ('Answer1', ['Answer2', 'Answer3', 'Answer4']), 'Question2': ('Answer1', ['Answer2', 'Answer3', 'Answer4'])}, '2019-04-10', '2019-04-11', '60']
+['De', 'FTest', {'1': ('e', ['w', 'q', 'f'])}, '2019-04-08', '2019-04-09']
+['De', 'FTest', {'q': ('d', ['q', 'w', 'e'])}, '2019-04-08', '2019-04-09']
+['De', 'FTest', {'q': ('f', ['w', 'x', 'g']), 'e': ('w', ['e', 'q', 'f'])}, '2019-04-08', '2019-04-09']
+['De', 'FTest', {'D': ('de', ['w', 'q', 'f'])}, '2019-04-08', '2019-04-09']
+['De', 'FTest', {'de': ('f', ['w', 'q', 'e'])}, '2019-04-08', '2019-04-09']
+['De', 'FTest', {'Df': ('d', ['w', 'q', 'z'])}, '2019-04-08', '2019-04-09']
+>>>>>>> b1f8af64c8f759e0a7d9eb6598b99479977980d1
