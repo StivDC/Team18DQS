@@ -95,6 +95,7 @@ def feedback():
     global nmOfTest
     global testDic
     global currentUser
+    global testType
     s1=[]
     count=0
     temp = []
@@ -126,7 +127,6 @@ def feedback():
             line.append(temp)
 
         for lines in line:
-            print(lines[2], 'STest')
             if lines[0] == testName:
                 if lines[2] == currentUser:
                     if lines[1] == 'STest':
@@ -251,6 +251,7 @@ def taketest():
     global nmOfTest
     test = []
     global testName
+    global testType
     # take test testName
     # load test from file
     # display test
@@ -263,6 +264,7 @@ def taketest():
                 temp = lines.split("'")
                 if temp[1] == testName:
                     test = lines
+                    testType = temp[3]
         start = test.find('{')
         end = test.find('}')
 
