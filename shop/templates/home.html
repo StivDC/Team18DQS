@@ -7,14 +7,17 @@
 
         <h1>Input how many questions you want:<input type="numerical" name="nmTests" required pattern="^[0-1]?[0-9]$" title="Only integers between 1-19 allowed"></h1>
         <input type="submit" name="submit">
-
-        <select name="testChoice">
-          {% for i in tests %}
-          <option value="{{i}}">{{i}}</option>
-          {% endfor %}
-        </select>
-
   </form>
+
+  <form method="POST" action="/taketest">
+    <select name="testChoice">
+      {% for i in tests %}
+      <option value="{{i}}">{{i}}</option>
+      {% endfor %}
+    </select>
+    <input type="submit" name="testChoiceSubmit">
+  </form>
+
 </div>
 
 {% endblock content %}

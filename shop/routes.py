@@ -86,25 +86,18 @@ def taketest():
     # load test from file
     # display test
     # on submit record studentID testID results etc to file
-
-    global xTest
-    s1={}
     if request.method == 'POST':
-        # Pushes questions and answers into a dictionary
-        for i in range(0, int(xTest)):
-            varQ = ""
-            varA = ""
-            varQ += "Q"+str(i)
-            varA += "A"+str(i)
-            varIAL =[]
-            for j in range(1,4):
-                varIA = ""
-                varIA += "IA"+str(i)
-                varIA+=str(j)
-                varIAL.append(request.form[varIA])
-            s1[request.form[varQ]] = request.form[varA], varIAL
-    test = s1
-    return render_template('takeTest.html', test=test)
+        testName = request.form['testName']
+
+        with open('testdatabase.txt') as fo:
+            for lines in fo:
+                temp = lines.split("'")
+                if temp[1] == testName:
+                    test = lines
+                    print(test)
+
+
+    return render_template('taketest.html', test=test)
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
